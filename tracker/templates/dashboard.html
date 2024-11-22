@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-lg rounded-lg p-8 max-w-7xl mx-auto">
+    <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Your Health Dashboard</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Total Calories -->
+        <div class="bg-blue-100 p-6 rounded-lg shadow-md text-center">
+            <h2 class="text-xl font-semibold text-blue-600">Total Calories Consumed</h2>
+            <p class="text-3xl font-bold text-blue-700">{{ total_calories }} kcal</p>
+        </div>
+
+        <!-- Calories Burned -->
+        <div class="bg-green-100 p-6 rounded-lg shadow-md text-center">
+            <h2 class="text-xl font-semibold text-green-600">Total Calories Burned</h2>
+            <p class="text-3xl font-bold text-green-700">{{ total_calories_burned }} kcal</p>
+        </div>
+
+        <!-- Water Intake -->
+        <div class="bg-teal-100 p-6 rounded-lg shadow-md text-center">
+            <h2 class="text-xl font-semibold text-teal-600">Total Water Consumed</h2>
+            <p class="text-3xl font-bold text-teal-700">{{ total_water }} liters</p>
+        </div>
+    </div>
+
+    <!-- Logs Section -->
+    <div class="mt-10">
+        <h2 class="text-2xl font-semibold mb-6 text-gray-800">Your Logs</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Meals Section -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl text-gray-800">Meals</h3>
+                <ul class="list-disc ml-6 mt-4 text-gray-700">
+                    {% for meal in meals %}
+                        <li>{{ meal.date }} - {{ meal.meal }} ({{ meal.calories }} kcal)</li>
+                    {% empty %}
+                        <p class="text-gray-500">No meals logged.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Workouts Section -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl text-gray-800">Workouts</h3>
+                <ul class="list-disc ml-6 mt-4 text-gray-700">
+                    {% for workout in workouts %}
+                        <li>{{ workout.date }} - {{ workout.workout_type }} ({{ workout.calories_burned }} kcal)</li>
+                    {% empty %}
+                        <p class="text-gray-500">No workouts logged.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Water Section -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl text-gray-800">Water Intake</h3>
+                <ul class="list-disc ml-6 mt-4 text-gray-700">
+                    {% for water in water_logs %}
+                        <li>{{ water.date }} - {{ water.water_amount }} liters</li>
+                    {% empty %}
+                        <p class="text-gray-500">No water logs found.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
